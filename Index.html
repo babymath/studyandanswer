@@ -1,1 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Quiz</title>
+<style>
+  .quiz-container {
+    max-width: 600px;
+    margin: auto;
+  }
+  .question {
+    margin-bottom: 20px;
+  }
+  .options {
+    margin-bottom: 10px;
+  }
+  .result {
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <h2>SQL Quiz</h2>
+  <form id="quiz-form">
+    <div class="question"></div>
+    <div class="options"></div>
+    <button type="submit">Submit</button>
+  </form>
+  <div class="result" style="display: none;">
+    <h3>Your Score:</h3>
+    <p id="score"></p>
+    <h3>Correct Answers:</h3>
+    <ul id="correct-answers"></ul>
+  </div>
+</div>
+
+<script>
+  const questions = [
+    {
+      question: "What SQL command is used to retrieve data from a database?",
+      options: ["GET", "SELECT", "FETCH", "SEARCH"],
+      answer: "SELECT"
+    },
+    // Add more questions here...
+  ];
+
+  const quizForm = document.getElementById('quiz-form');
+  const resultContainer = document.querySelector('.result');
+  const scoreDisplay = document.getElementById('score');
+  const correctAnswersList = document.getElementById('correct-answers');
+
+  let score = 0;
+
+  function buildQuiz() {
+    questions.forEach((question, index) => {
+      const questionDiv = document.querySelector('.question');
+      const optionsDiv = document.querySelector('.options');
+      const questionElem = document.createElement('div');
+      const optionsElem = document.createElement('div');
+      questionElem.textContent = `Q${index + 1}. ${question.question}`;
+      questionDiv.appendChild(questionElem);
+      question.options.forEach((option, idx) => {
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = `question-${index}`;
+        input.value = option;
+        const label = document.createElement('label');
+        label.textContent = option;
+        optionsElem.appendChild(input);
+        optionsElem.appendChild(label);
+        optionsElem.appendChild(document.createElement('br'));
+      });
+      optionsDiv.appendChild(optionsElem);
+    });
+  }
+
+  function showResult(event) {
+    event.preventDefault();
+    let userAnswers = [];
+    questions.forEach((question, index) => {
+      const answer = document.querySelector(`input[name="question-${index}"]:checked`);
+      if (answer) {
+        userAnswers.push(answer.value);
+        if (answer.value === question.answer) {
+          score++;
+        }
+      }
+    });
+    scoreDisplay.textContent = `${score}/${questions.length}`;
+    resultContainer.style.display = 'block';
+    showCorrectAnswers();
+  }
+
+  function showCorrectAnswers() {
+    questions.forEach((question, index) => {
+      const answerElem = document.createElement('li');
+      answerElem.textContent = `Q${index + 1}: ${question.answer}`;
+      correctAnswersList.appendChild(answerElem);
+    });
+  }
+
+  buildQuiz();
+  quizForm.addEventListener('submit', showResult);
+</script>
+
+</body>
+  </html>
 
