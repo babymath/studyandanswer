@@ -246,7 +246,7 @@
     function showPopup(chapterName, chapterNumber) {
       popupTitle.textContent = chapterName;
       popupExercises.innerHTML = exercisesData[chapterNumber]
-        .map((exercise, i) => `<li><a href="${exerciseLinks[chapterNumber][i]}" target="_blank" onclick="closePopup()">${exercise}</a></li>`) 
+        .map((exercise, i) => `<li><a href="${exerciseLinks[chapterNumber][i]}"  onclick="closePopup()">${exercise}</a></li>`) 
         .join('');
       popup.style.display = 'flex';
     }
