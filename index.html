@@ -168,7 +168,7 @@
     function renderBooks() {
       const container = document.getElementById("linksContainer");
       container.innerHTML = books.map(book => `
-        <a class="link-card" href="${book.link}" target="_blank" 
+        <a class="link-card" href="${book.link}"  
            data-class="${book.class}" data-publication="${book.publication}" 
            data-authors="${(book.authors || []).join(',')}" data-subject="${book.subject}"
            style="background-color: ${book.colour || '#fff'};">
